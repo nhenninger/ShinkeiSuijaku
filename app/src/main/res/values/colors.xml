@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Taken from browser version CSS file -->
+    <color name="background">#ADD8E6</color>
+    <color name="front_text">#707070</color>
+    <color name="playfield_background">#CCCCCC</color>
+    <color name="card_back_background">#F5F5DC</color>
+</resources>
