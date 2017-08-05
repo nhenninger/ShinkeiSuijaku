@@ -88,9 +88,9 @@ public class ShinkeiSuijakuFragment extends Fragment
                 .findViewById(R.id.fragment_shinkei_suijaku_recycler_view);
         setupLayoutManager(mNumColumns);
 
-        setupAdapter();
-
+        setupRecyclerViewCacheSize(mRecyclerView, mCards.size());
         setupOrientation(mOrientation);
+        setupAdapter();
 
         return view;
     }
@@ -125,10 +125,10 @@ public class ShinkeiSuijakuFragment extends Fragment
     }
 
     // TODO
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//    }
 
     @Override
     public void onPause() {
@@ -136,7 +136,6 @@ public class ShinkeiSuijakuFragment extends Fragment
         // TODO: remove this if/when able to retain status of flipped cards.
         mActiveCardHolders.clear();
         mMatches = 0;
-        setupAdapter();
     }
 
     @Override
@@ -275,6 +274,16 @@ public class ShinkeiSuijakuFragment extends Fragment
         if (isAdded()) {
             mRecyclerView.setAdapter(new CardAdapter(mCards));
         }
+    }
+
+    /**
+     * Assigns the passed RecyclerView's cache size to the passed integer.
+     *
+     * @param rv   The RecyclerView to modify.
+     * @param size The new size of the ItemViewCacheSize.
+     */
+    private void setupRecyclerViewCacheSize(RecyclerView rv, int size) {
+        rv.setItemViewCacheSize(size);
     }
 
     /**
@@ -475,7 +484,7 @@ public class ShinkeiSuijakuFragment extends Fragment
             mCards = lesson.getCards();
             //noinspection CollectionAddedToSelf
             mCards.addAll(mCards);
-            mRecyclerView.setItemViewCacheSize(mCards.size());
+            setupRecyclerViewCacheSize(mRecyclerView, mCards.size());
             shuffleCards();
             setupAdapter();
         }
