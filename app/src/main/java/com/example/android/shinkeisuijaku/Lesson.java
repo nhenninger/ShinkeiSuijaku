@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Models a lesson.
  * Analagous to Sound in BeatBox.
  */
 public class Lesson {
@@ -63,6 +64,11 @@ public class Lesson {
         return mCards;
     }
 
+    /**
+     * Parses JSON to create a Lesson object.
+     *
+     * @param rawJson The data directly from file.
+     */
     private void parseItems(String rawJson) {
         Gson gson = new GsonBuilder().create();
         try {
@@ -71,7 +77,7 @@ public class Lesson {
             if (jsonObject.has("syllabary")) { // Lessons 1 and 2
                 jsonCardSet = jsonObject.getJSONArray("syllabary");
             } else { // Lesson 3 to 23
-                jsonCardSet= jsonObject.getJSONArray("kanji");
+                jsonCardSet = jsonObject.getJSONArray("kanji");
             }
             mCards = new ArrayList<>(
                     Arrays.asList(gson.fromJson(jsonCardSet.toString(), Card[].class)));

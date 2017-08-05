@@ -34,6 +34,10 @@ public class CardCollector {
         loadLessons();
     }
 
+    /**
+     * Loads all the lesson data from files in the AssetManager into an
+     * ArrayList.
+     */
     private void loadLessons() {
         String[] lessonNames;
         try {
@@ -71,9 +75,11 @@ public class CardCollector {
     }
 
     /**
-     * @throws IllegalArgumentException If lesson not between 1 and 23 inclusive.
+     * Returns the lesson specified by the lessonNum parameter.
+     *
      * @param lessonNum The number of the lesson, between 1 and 23 inclusive.
      * @return The Lesson object.
+     * @throws IllegalArgumentException If lesson not between 1 and 23 inclusive.
      */
     public Lesson getLesson(int lessonNum) {
         if (lessonNum <= 0 || lessonNum > 23) {

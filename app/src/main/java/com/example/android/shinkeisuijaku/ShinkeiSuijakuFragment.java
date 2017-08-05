@@ -54,7 +54,6 @@ public class ShinkeiSuijakuFragment extends Fragment
      * The two cards compared for a match.
      */
     private ArrayList<CardHolder> mActiveCardHolders = new ArrayList<>(2);
-//    private CardCollector mCardCollector;
     private RecyclerView mRecyclerView;
 
     private boolean mShowLatinText;
@@ -73,7 +72,6 @@ public class ShinkeiSuijakuFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mCardCollector = new CardCollector(getActivity());
         setRetainInstance(true);
         setHasOptionsMenu(true);
         setupSharedPreferences();
@@ -149,10 +147,18 @@ public class ShinkeiSuijakuFragment extends Fragment
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    /**
+     * Shuffle ze cards.
+     */
     private void shuffleCards() {
         Collections.shuffle(mCards);
     }
 
+    /**
+     * Iterates through the board and toggles display of the Latin text.
+     *
+     * @param toggle If true, display the Latin text.
+     */
     private void toggleAllLatinText(boolean toggle) {
         for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
             CardHolder holder = (CardHolder) mRecyclerView
@@ -161,6 +167,11 @@ public class ShinkeiSuijakuFragment extends Fragment
         }
     }
 
+    /**
+     * Determines whether two ViewHolders hold matching cards.
+     *
+     * @param holder The most recent clicked ViewHolder.
+     */
     private void checkForMatch(CardHolder holder) {
         mActiveCardHolders.add(holder);
         holder.mCardView.setClickable(false);
@@ -182,6 +193,10 @@ public class ShinkeiSuijakuFragment extends Fragment
         }
     }
 
+    /**
+     * Checks if player has made all matches and if so displays a
+     * congratulatory AlertDialog before resetting the board.
+     */
     private void checkForWin() {
         if (mMatches == mCards.size() / 2) {
             new AlertDialog.Builder(getActivity())
@@ -198,10 +213,17 @@ public class ShinkeiSuijakuFragment extends Fragment
         }
     }
 
+    /**
+     * Initiates the FetchLessonsTask with the current lesson.
+     */
     private void updateItems() {
         new FetchLessonsTask(mLessonNumber).execute();
     }
 
+    /**
+     * Initializes member variables to stored preference values and registers
+     * this fragment as an OnSharedPreferenceChangeListener.
+     */
     private void setupSharedPreferences() {
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -220,11 +242,22 @@ public class ShinkeiSuijakuFragment extends Fragment
         preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+    /**
+     * Assigns the RecyclerView's LayoutManager.
+     *
+     * @param numColumns The number of columns for the GridLayoutManager.
+     */
     private void setupLayoutManager(int numColumns) {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
                 numColumns));
     }
 
+    /**
+     * Locks and unlocks the screen orientation to portrait or landscape.
+     *
+     * @param str Either "portrait" or "landscape" to lock the screen.  Anything
+     *            else will unlock it.
+     */
     private void setupOrientation(String str) {
         if (str.equals(getString(R.string.pref_orientation_value_portrait))) {
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -235,12 +268,18 @@ public class ShinkeiSuijakuFragment extends Fragment
         }
     }
 
+    /**
+     * Assigns the RecyclerView's adapter to a new CardAdapter.
+     */
     private void setupAdapter() {
         if (isAdded()) {
             mRecyclerView.setAdapter(new CardAdapter(mCards));
         }
     }
 
+    /**
+     * Reset the game board.
+     */
     private void resetBoard() {
         mActiveCardHolders.clear();
         mMatches = 0;
@@ -270,7 +309,7 @@ public class ShinkeiSuijakuFragment extends Fragment
             setupLayoutManager(mNumColumns);
             setupAdapter();
         } else if (s.equals(getString(R.string.pref_orientation_key))) {
-            mOrientation =  sharedPreferences.getString(getString(R.string.pref_orientation_key),
+            mOrientation = sharedPreferences.getString(getString(R.string.pref_orientation_key),
                     getString(R.string.pref_orientation_default));
             setupOrientation(mOrientation);
         }
@@ -334,12 +373,17 @@ public class ShinkeiSuijakuFragment extends Fragment
             });
         }
 
+        /**
+         * Binds the card to this ViewHolder.
+         *
+         * @param card A Card object.
+         */
         public void bindCard(Card card) {
             mCard = card;
             if (mCard.getKana() != null) { // Lessons 1 and 2
                 mTvCharacter.setText(mCard.getKana());
                 mTvLatinText.setText(mCard.getPronunciation());
-                Log.i(TAG, "bindCard: " + mCard.getKana() + ", " + mCard.getPronunciation());
+//                Log.i(TAG, "bindCard: " + mCard.getKana() + ", " + mCard.getPronunciation());
             } else { // Lessons 3 to 23
                 mTvCharacter.setText(mCard.getCharacter());
                 mTvLatinText.setText(mCard.getMeaning());
@@ -349,11 +393,14 @@ public class ShinkeiSuijakuFragment extends Fragment
 
         @Override
         public void onClick(View view) {
-            Log.i(TAG, "onClick: clicked");
+//            Log.i(TAG, "onClick: clicked");
             flip();
             checkForMatch(this);
         }
 
+        /**
+         * Begins the flip animation in either direction.
+         */
         public void flip() {
             if (mShowingBack) {
                 mBackToFrontStart.start();
@@ -365,6 +412,11 @@ public class ShinkeiSuijakuFragment extends Fragment
             mShowingBack = !mShowingBack;
         }
 
+        /**
+         * Toggles the display of Latin text on the card.
+         *
+         * @param toggle True to display Latin text.
+         */
         public void toggleLatinText(boolean toggle) {
             if (toggle) {
                 mTvLatinText.setVisibility(View.VISIBLE);
