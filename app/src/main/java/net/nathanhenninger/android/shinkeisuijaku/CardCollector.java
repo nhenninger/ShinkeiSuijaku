@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 /**
  * Created by Nathan Henninger on 2017.07.19.
@@ -42,9 +42,9 @@ public class CardCollector {
         String[] lessonNames;
         try {
             lessonNames = mAssetManager.list(LESSONS_FOLDER);
-            Log.i(TAG, "Found " + lessonNames.length + " lessons");
+//            Log.i(TAG, "Found " + lessonNames.length + " lessons");
         } catch (IOException ioe) {
-            Log.e(TAG, "loadLessons: Could not list assets", ioe);
+//            Log.e(TAG, "loadLessons: Could not list assets", ioe);
             return;
         }
 

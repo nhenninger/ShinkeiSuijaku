@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 /*
  * Copyright (C) 2016 The Android Open Source Project

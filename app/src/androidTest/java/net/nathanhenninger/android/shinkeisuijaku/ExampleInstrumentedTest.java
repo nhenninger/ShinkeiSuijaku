@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

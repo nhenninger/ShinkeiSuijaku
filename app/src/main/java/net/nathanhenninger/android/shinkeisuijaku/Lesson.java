@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 /**
  * Created by Nathan Henninger on 2017.07.19.

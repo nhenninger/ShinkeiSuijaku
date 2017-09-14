@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -44,7 +44,6 @@ public class ShinkeiSuijakuFragment extends Fragment
     private static final String TAG = "ShinkeiSuijakuFragment";
     private static final int FIRST_LESSON = 1;
     private static final int DEFAULT_NUM_COLUMNS = 3;
-    // TODO: add pinch to zoom number of columns?
 
     /**
      * The total deck of cards -- two of each kind.
@@ -84,8 +83,7 @@ public class ShinkeiSuijakuFragment extends Fragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shinkei_suijaku, container, false);
-        mRecyclerView = (RecyclerView) view
-                .findViewById(R.id.fragment_shinkei_suijaku_recycler_view);
+        mRecyclerView = view.findViewById(R.id.fragment_shinkei_suijaku_recycler_view);
         setupLayoutManager(mNumColumns);
 
         setupRecyclerViewCacheSize(mRecyclerView, mCards.size());
@@ -124,7 +122,6 @@ public class ShinkeiSuijakuFragment extends Fragment
         }
     }
 
-    // TODO
 //    @Override
 //    public void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);
@@ -174,7 +171,6 @@ public class ShinkeiSuijakuFragment extends Fragment
     private void checkForMatch(CardHolder holder) {
         mActiveCardHolders.add(holder);
         holder.mCardView.setClickable(false);
-        Log.i(TAG, "checkForMatch: " + holder.mShowingBack);
         if (mActiveCardHolders.size() == 1) {
             // Do nothing~!
             return;
@@ -303,7 +299,6 @@ public class ShinkeiSuijakuFragment extends Fragment
                     getString(R.string.pref_display_latin_text_key),
                     getResources().getBoolean(R.bool.pref_display_latin_text_default)
             );
-            Log.i(TAG, "onSharedPreferenceChanged: " + mShowLatinText);
             toggleAllLatinText(mShowLatinText);
         } else if (s.equals(getString(R.string.pref_lesson_key))) {
             mLessonNumber = Integer.parseInt(sharedPreferences
@@ -344,11 +339,11 @@ public class ShinkeiSuijakuFragment extends Fragment
 
         public CardHolder(View itemView) {
             super(itemView);
-            mCardView = (CardView) itemView.findViewById(R.id.cv_card);
-            mCardFront = (TextView) itemView.findViewById(R.id.tv_card_front);
-            mCardBack = (ConstraintLayout) itemView.findViewById(R.id.cl_card_back);
-            mTvCharacter = (TextView) itemView.findViewById(R.id.tv_card_back_character);
-            mTvLatinText = (TextView) itemView.findViewById(R.id.tv_card_back_latin_text);
+            mCardView = itemView.findViewById(R.id.cv_card);
+            mCardFront = itemView.findViewById(R.id.tv_card_front);
+            mCardBack = itemView.findViewById(R.id.cl_card_back);
+            mTvCharacter = itemView.findViewById(R.id.tv_card_back_character);
+            mTvLatinText = itemView.findViewById(R.id.tv_card_back_latin_text);
             itemView.setOnClickListener(this);
 
             mFrontToBackStart = (AnimatorSet) AnimatorInflater

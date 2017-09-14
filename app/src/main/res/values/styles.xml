@@ -10,12 +10,12 @@
     </style>
 
     <style name="japanese_text" parent="AppTheme">
-        <item name="android:textSize">36dp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:textColor">@color/front_text</item>
     </style>
 
     <style name="latin_text" parent="AppTheme">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

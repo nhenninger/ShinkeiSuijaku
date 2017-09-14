@@ -1,4 +1,4 @@
-package com.example.android.shinkeisuijaku;
+package net.nathanhenninger.android.shinkeisuijaku;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
